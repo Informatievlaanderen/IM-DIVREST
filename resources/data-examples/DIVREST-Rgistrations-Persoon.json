@@ -1,0 +1,157 @@
+{
+  "@context": {
+    "Person":"http://www.w3.org/ns/person#Person",
+    "GeregistreerdPersoon": "https://data.vlaanderen.be/ns/persoon#GeregistreerdPersoon",
+    "Persoon.heeftGeboorte": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#heeftGeboorte",
+      "@type": "https://data.vlaanderen.be/ns/persoon#Geboorte"
+    },
+    "Persoon.geslacht": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#geslacht",
+      "@type": "@id"
+    },
+    "Persoon.contactinfo": {
+      "@id": "http://schema.org/contactPoint",
+      "@type": "http://schema.org/ContactPoint"
+    },
+    "lastName": {
+      "@id": "http://xmlns.com/foaf/0.1/familyName",
+      "@type": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "firstName": {
+      "@id": "http://xmlns.com/foaf/0.1/givenName",
+      "@type": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "nationalNr": "https://data.vlaanderen.be/ns/persoon#registratie",
+    "Identificator": "http://www.w3.org/ns/adms#Identifier",
+    "Identificator.identificator": {
+      "@id": "http://www.w3.org/2004/02/skos/core#notation",
+      "@type": "http://www.w3.org/2000/01/rdf-schema#Literal"
+    },
+    "Geboorte": "https://data.vlaanderen.be/ns/persoon#Geboorte",
+    "Geboorte.datum": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#datum",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "Geboorte.land": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#land",
+      "@type": "@id"
+    },
+    "Geboorte.plaats": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#plaats",
+      "@type": "@id"
+    },
+    "Plaats": "http://purl.org/dc/terms/Location",
+    "Plaats.plaatsnaam": {
+      "@id": "http://www.w3.org/2000/01/rdf-schema#label",
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
+    },
+    "Contactinfo": "http://schema.org/ContactPoint",
+    "Contactinfo.adres": {
+      "@id": "http://www.w3.org/ns/locn#address",
+      "@type": "http://www.w3.org/ns/locn#Address"
+    },
+    "Adresvoorstelling": "http://www.w3.org/ns/locn#Address",
+    "Adresvoorstelling.busnummer": {
+      "@id": "https://data.vlaanderen.be/ns/adres#Adresvoorstelling.busnummer",
+      "@type": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "Adresvoorstelling.gemeentenaam": {
+      "@id": "https://data.vlaanderen.be/ns/adres#gemeentenaam",
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
+    },
+    "Adresvoorstelling.huisnummer": {
+      "@id": "https://data.vlaanderen.be/ns/adres#Adresvoorstelling.huisnummer",
+      "@type": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "Adresvoorstelling.land": {
+      "@id": "https://data.vlaanderen.be/ns/adres#land",
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
+    },
+    "Adresvoorstelling.postcode": {
+      "@id": "https://data.vlaanderen.be/ns/adres#Adresvoorstelling.postcode",
+      "@type": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "Adresvoorstelling.straatnaam": {
+      "@id": "http://www.w3.org/ns/locn#thoroughfare",
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
+    }
+  },
+  "@graph": [
+    {
+      "@type": "https://overheid.vlaanderen.be/informatie-vlaanderen/ns/im-divrest/Registration",
+      "certificate": [ { } ],
+      "license": { },
+      "https://overheid.vlaanderen.be/informatie-vlaanderen/ns/im-divrest/titular": {
+        "@id": "https://example.com/id/geregistreerdpersoon/01234567890",
+        "@type": [ "GeregistreerdPersoon", "https://overheid.vlaanderen.be/informatie-vlaanderen/ns/ns/im-divrest/Titular" ],
+        "https://overheid.vlaanderen.be/informatie-vlaanderen/ns/im-divrest/title": null,
+        "https://overheid.vlaanderen.be/informatie-vlaanderen/ns/im-divrest/type": "M",
+        "nationalNr": {
+          "@type": "Identificator",
+          "Identificator.identificator": {
+            "@value": "01234567890",
+            "@type": "https://example.com/id/nummeringsschema/rijksregister"
+          }
+        },
+        "lastName": "My Last Name",
+        "firstName": [ "First", "Name" ],
+        "Persoon.geslacht": "http://publications.europa.eu/resource/authority/human-sex/MALE",
+        "https://overheid.vlaanderen.be/informatie-vlaanderen/ns/im-divrest/birthYear": "1934",
+        "Persoon.heeftGeboorte": {
+          "@type": "Geboorte",
+          "Geboorte.datum": "1934-01-01T00:00:00.000",
+          "Geboorte.plaats": "https://data.vlaanderen.be/id/plaats/123",
+          "Geboorte.land": "https://data.vlaanderen.be/id/plaats/456"
+        },
+        "Persoon.contactinfo": {
+          "@type": "Contactinfo",
+          "Contactinfo.adres": {
+            "@type": "Adresvoorstelling",
+            "Adresvoorstelling.busnummer": null,
+            "Adresvoorstelling.gemeentenaam": {
+              "@value": "Erps Kwerps",
+              "@language": "nl"
+            },
+            "Adresvoorstelling.huisnummer": "679",
+            "Adresvoorstelling.land": {
+              "@value": "België",
+              "@language": "nl"
+            },
+            "https://overheid.vlaanderen.be/informatie-vlaanderen/ns/im-divrest/lastUpdateDateTime": null,
+            "https://overheid.vlaanderen.be/informatie-vlaanderen/ns/im-divrest/lastUpdateSource": "RR",
+            "Adresvoorstelling.postcode": "3071",
+            "Adresvoorstelling.straatnaam": {
+              "@value": "Leuvensesteenweg",
+              "@language": "nl"
+            }
+          }
+        }
+      },
+      "transaction": [ { } ],
+      "vehicle": { }
+    },
+    {
+      "@id": "https://data.vlaanderen.be/id/plaats/123",
+      "@type": "Plaats",
+      "Plaats.plaatsnaam": {
+        "@value": "Ertvelde",
+        "@language": "nl"
+      }
+    },
+    {
+      "land": {
+        "@id": "https://data.vlaanderen.be/id/plaats/456",
+        "@type": "Plaats",
+        "Plaats.plaatsnaam": {
+          "@value": "België",
+          "@language": "nl"
+        }
+      }
+    },
+    {
+      "@id": "http://publications.europa.eu/resource/authority/human-sex/MALE",
+      "@type": "http://www.w3.org/2004/02/skos/core#Concept"
+    }
+  ]
+}
