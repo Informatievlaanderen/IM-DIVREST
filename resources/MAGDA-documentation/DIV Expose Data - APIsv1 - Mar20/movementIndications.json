@@ -1,0 +1,3211 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Expose Data DIV - Movement Indications Service",
+    "version": "3.0.0",
+    "description": "This service allows querying the indications about new or modified registered data at the DIV on a daily basis. It concerns indications of the DIV related datadomains registration and vehicle."
+  },
+  "servers": [
+    {
+      "url": "https://esb.tst.mobilit.fgov.be",
+      "description": "TST environment"
+    },
+    {
+      "url": "https://esb.ta.mobilit.fgov.be",
+      "description": "ACC environment"
+    },
+    {
+      "url": "https://esb.mobilit.fgov.be",
+      "description": "PRD environment"
+    }
+  ],
+  "paths": {
+    "/mobivisData/rest/movementIndications/registrationsNew": {
+      "get": {
+        "tags": [
+          "Request movement indications"
+        ],
+        "summary": "Query movement indications on new registrations.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A security token.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation technically sending the request to SPF Mobility&Transport. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation for which the information is intended, from which the information is coming or which is business-wise responsible. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Application",
+            "in": "header",
+            "description": "This is a description of the requesting business application. This description will be agreed and predefined by SPF Mobility&Transports and is based on the business authorisation to the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Id",
+            "in": "header",
+            "description": "This header needs to assure to be able to identify the person who is executing the request. This identification needs to be done by the users own organisation, but not necessarily by the SPF Mobility&Transport. This header is kept in the logs and when necessary (for example in case of a legal investigation) the organisation needs to be able to identify the user. In case the request is not initiated by an individual user, then an identifiable name should be entered identifying the automated process or the business unit.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Reference",
+            "in": "header",
+            "description": "This header contains a reference assigned by the user.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "This header specifies the language in which multi valued properties of the response should be returned.<br>",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "nl",
+                "fr",
+                "en",
+                "de"
+              ]
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date for which the indications are requested.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "vehicleCategory",
+            "in": "query",
+            "description": "Allows to filter a specific vehicle category. Filtering only allowed on M1 and M2.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "M1",
+                "M2"
+              ]
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Indicates the size of a page in a paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "Indicates the element before the first element of the requested page in a cursor-based paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data found for the requested parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mobivisData/rest/movementIndications/registrationsChangedDataLicense": {
+      "get": {
+        "tags": [
+          "Request movement indications"
+        ],
+        "summary": "Query movement indications on registrations with changed license data.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A security token.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation technically sending the request to SPF Mobility&Transport. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation for which the information is intended, from which the information is coming or which is business-wise responsible. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Application",
+            "in": "header",
+            "description": "This is a description of the requesting business application. This description will be agreed and predefined by SPF Mobility&Transports and is based on the business authorisation to the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Id",
+            "in": "header",
+            "description": "This header needs to assure to be able to identify the person who is executing the request. This identification needs to be done by the users own organisation, but not necessarily by the SPF Mobility&Transport. This header is kept in the logs and when necessary (for example in case of a legal investigation) the organisation needs to be able to identify the user. In case the request is not initiated by an individual user, then an identifiable name should be entered identifying the automated process or the business unit.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Reference",
+            "in": "header",
+            "description": "This header contains a reference assigned by the user.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "This header specifies the language in which multi valued properties of the response should be returned.<br>",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "nl",
+                "fr",
+                "en",
+                "de"
+              ]
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date for which the indications are requested.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "vehicleCategory",
+            "in": "query",
+            "description": "Allows to filter a specific vehicle category. Filtering only allowed on M1 and M2.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "M1",
+                "M2"
+              ]
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Indicates the size of a page in a paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "Indicates the element before the first element of the requested page in a cursor-based paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data found for the requested parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mobivisData/rest/movementIndications/registrationsChangedDataVehicle": {
+      "get": {
+        "tags": [
+          "Request movement indications"
+        ],
+        "summary": "Query movement indications on registrations with changed vehicle data.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A security token.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation technically sending the request to SPF Mobility&Transport. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation for which the information is intended, from which the information is coming or which is business-wise responsible. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Application",
+            "in": "header",
+            "description": "This is a description of the requesting business application. This description will be agreed and predefined by SPF Mobility&Transports and is based on the business authorisation to the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Id",
+            "in": "header",
+            "description": "This header needs to assure to be able to identify the person who is executing the request. This identification needs to be done by the users own organisation, but not necessarily by the SPF Mobility&Transport. This header is kept in the logs and when necessary (for example in case of a legal investigation) the organisation needs to be able to identify the user. In case the request is not initiated by an individual user, then an identifiable name should be entered identifying the automated process or the business unit.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Reference",
+            "in": "header",
+            "description": "This header contains a reference assigned by the user.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "This header specifies the language in which multi valued properties of the response should be returned.<br>",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "nl",
+                "fr",
+                "en",
+                "de"
+              ]
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date for which the indications are requested.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "vehicleCategory",
+            "in": "query",
+            "description": "Allows to filter a specific vehicle category. Filtering only allowed on M1 and M2.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "M1",
+                "M2"
+              ]
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Indicates the size of a page in a paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "Indicates the element before the first element of the requested page in a cursor-based paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data found for the requested parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mobivisData/rest/movementIndications/registrationsTransferred": {
+      "get": {
+        "tags": [
+          "Request movement indications"
+        ],
+        "summary": "Query movement indications on transferred registrations.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A security token.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation technically sending the request to SPF Mobility&Transport. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation for which the information is intended, from which the information is coming or which is business-wise responsible. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Application",
+            "in": "header",
+            "description": "This is a description of the requesting business application. This description will be agreed and predefined by SPF Mobility&Transports and is based on the business authorisation to the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Id",
+            "in": "header",
+            "description": "This header needs to assure to be able to identify the person who is executing the request. This identification needs to be done by the users own organisation, but not necessarily by the SPF Mobility&Transport. This header is kept in the logs and when necessary (for example in case of a legal investigation) the organisation needs to be able to identify the user. In case the request is not initiated by an individual user, then an identifiable name should be entered identifying the automated process or the business unit.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Reference",
+            "in": "header",
+            "description": "This header contains a reference assigned by the user.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "This header specifies the language in which multi valued properties of the response should be returned.<br>",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "nl",
+                "fr",
+                "en",
+                "de"
+              ]
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date for which the indications are requested.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "vehicleCategory",
+            "in": "query",
+            "description": "Allows to filter a specific vehicle category. Filtering only allowed on M1 and M2.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "M1",
+                "M2"
+              ]
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Indicates the size of a page in a paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "Indicates the element before the first element of the requested page in a cursor-based paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data found for the requested parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mobivisData/rest/movementIndications/registrationsUnregistered": {
+      "get": {
+        "tags": [
+          "Request movement indications"
+        ],
+        "summary": "Query movement indications on unregistered registrations.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A security token.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation technically sending the request to SPF Mobility&Transport. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation for which the information is intended, from which the information is coming or which is business-wise responsible. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Application",
+            "in": "header",
+            "description": "This is a description of the requesting business application. This description will be agreed and predefined by SPF Mobility&Transports and is based on the business authorisation to the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Id",
+            "in": "header",
+            "description": "This header needs to assure to be able to identify the person who is executing the request. This identification needs to be done by the users own organisation, but not necessarily by the SPF Mobility&Transport. This header is kept in the logs and when necessary (for example in case of a legal investigation) the organisation needs to be able to identify the user. In case the request is not initiated by an individual user, then an identifiable name should be entered identifying the automated process or the business unit.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Reference",
+            "in": "header",
+            "description": "This header contains a reference assigned by the user.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "This header specifies the language in which multi valued properties of the response should be returned.<br>",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "nl",
+                "fr",
+                "en",
+                "de"
+              ]
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date for which the indications are requested.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "vehicleCategory",
+            "in": "query",
+            "description": "Allows to filter a specific vehicle category. Filtering only allowed on M1 and M2.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "M1",
+                "M2"
+              ]
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Indicates the size of a page in a paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "Indicates the element before the first element of the requested page in a cursor-based paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data found for the requested parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mobivisData/rest/movementIndications/registrationsCrossedOut": {
+      "get": {
+        "tags": [
+          "Request movement indications"
+        ],
+        "summary": "Query movement indications on crossed-out registrations.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A security token.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation technically sending the request to SPF Mobility&Transport. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation for which the information is intended, from which the information is coming or which is business-wise responsible. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Application",
+            "in": "header",
+            "description": "This is a description of the requesting business application. This description will be agreed and predefined by SPF Mobility&Transports and is based on the business authorisation to the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Id",
+            "in": "header",
+            "description": "This header needs to assure to be able to identify the person who is executing the request. This identification needs to be done by the users own organisation, but not necessarily by the SPF Mobility&Transport. This header is kept in the logs and when necessary (for example in case of a legal investigation) the organisation needs to be able to identify the user. In case the request is not initiated by an individual user, then an identifiable name should be entered identifying the automated process or the business unit.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Reference",
+            "in": "header",
+            "description": "This header contains a reference assigned by the user.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "This header specifies the language in which multi valued properties of the response should be returned.<br>",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "nl",
+                "fr",
+                "en",
+                "de"
+              ]
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date for which the indications are requested.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "vehicleCategory",
+            "in": "query",
+            "description": "Allows to filter a specific vehicle category. Filtering only allowed on M1 and M2.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "M1",
+                "M2"
+              ]
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Indicates the size of a page in a paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "Indicates the element before the first element of the requested page in a cursor-based paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data found for the requested parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mobivisData/rest/movementIndications/transactions": {
+      "get": {
+        "tags": [
+          "Request movement indications"
+        ],
+        "summary": "Query movement indications on all registration related transactions.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A security token.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation technically sending the request to SPF Mobility&Transport. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation for which the information is intended, from which the information is coming or which is business-wise responsible. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Application",
+            "in": "header",
+            "description": "This is a description of the requesting business application. This description will be agreed and predefined by SPF Mobility&Transports and is based on the business authorisation to the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Id",
+            "in": "header",
+            "description": "This header needs to assure to be able to identify the person who is executing the request. This identification needs to be done by the users own organisation, but not necessarily by the SPF Mobility&Transport. This header is kept in the logs and when necessary (for example in case of a legal investigation) the organisation needs to be able to identify the user. In case the request is not initiated by an individual user, then an identifiable name should be entered identifying the automated process or the business unit.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Reference",
+            "in": "header",
+            "description": "This header contains a reference assigned by the user.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "This header specifies the language in which multi valued properties of the response should be returned.<br>",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "nl",
+                "fr",
+                "en",
+                "de"
+              ]
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date for which the indications are requested.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "vehicleCategory",
+            "in": "query",
+            "description": "Allows to filter a specific vehicle category. Filtering only allowed on M1 and M2.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "M1",
+                "M2"
+              ]
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Indicates the size of a page in a paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "Indicates the element before the first element of the requested page in a cursor-based paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data found for the requested parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mobivisData/rest/movementIndications/registrationsNewOnNewVehiclesOdometer": {
+      "get": {
+        "tags": [
+          "Request movement indications and including only vehicles subject to KM-followup"
+        ],
+        "summary": "Query movement indications on new registrations for new vehicles category M1 and M2.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A security token.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation technically sending the request to SPF Mobility&Transport. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation for which the information is intended, from which the information is coming or which is business-wise responsible. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Application",
+            "in": "header",
+            "description": "This is a description of the requesting business application. This description will be agreed and predefined by SPF Mobility&Transports and is based on the business authorisation to the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Id",
+            "in": "header",
+            "description": "This header needs to assure to be able to identify the person who is executing the request. This identification needs to be done by the users own organisation, but not necessarily by the SPF Mobility&Transport. This header is kept in the logs and when necessary (for example in case of a legal investigation) the organisation needs to be able to identify the user. In case the request is not initiated by an individual user, then an identifiable name should be entered identifying the automated process or the business unit.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Reference",
+            "in": "header",
+            "description": "This header contains a reference assigned by the user.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "This header specifies the language in which multi valued properties of the response should be returned.<br>",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "nl",
+                "fr",
+                "en",
+                "de"
+              ]
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date for which the indications are requested.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Indicates the size of a page in a paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "Indicates the element before the first element of the requested page in a cursor-based paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data found for the requested parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mobivisData/rest/movementIndications/registrationsNewOnSecondhandVehiclesOdometer": {
+      "get": {
+        "tags": [
+          "Request movement indications and including only vehicles subject to KM-followup"
+        ],
+        "summary": "Query movement indications on new registrations for 2nd-hand imported vehicles category M1 and M2.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A security token.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation technically sending the request to SPF Mobility&Transport. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation for which the information is intended, from which the information is coming or which is business-wise responsible. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Application",
+            "in": "header",
+            "description": "This is a description of the requesting business application. This description will be agreed and predefined by SPF Mobility&Transports and is based on the business authorisation to the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Id",
+            "in": "header",
+            "description": "This header needs to assure to be able to identify the person who is executing the request. This identification needs to be done by the users own organisation, but not necessarily by the SPF Mobility&Transport. This header is kept in the logs and when necessary (for example in case of a legal investigation) the organisation needs to be able to identify the user. In case the request is not initiated by an individual user, then an identifiable name should be entered identifying the automated process or the business unit.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Reference",
+            "in": "header",
+            "description": "This header contains a reference assigned by the user.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "This header specifies the language in which multi valued properties of the response should be returned.<br>",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "nl",
+                "fr",
+                "en",
+                "de"
+              ]
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date for which the indications are requested.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Indicates the size of a page in a paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "Indicates the element before the first element of the requested page in a cursor-based paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data found for the requested parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mobivisData/rest/movementIndications/registrationsChangedDataVehiclesOdometer": {
+      "get": {
+        "tags": [
+          "Request movement indications and including only vehicles subject to KM-followup"
+        ],
+        "summary": "Query movement indications on registrations with corrected vehicle data vehicle-category M1 and M2.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A security token.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation technically sending the request to SPF Mobility&Transport. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation for which the information is intended, from which the information is coming or which is business-wise responsible. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Application",
+            "in": "header",
+            "description": "This is a description of the requesting business application. This description will be agreed and predefined by SPF Mobility&Transports and is based on the business authorisation to the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Id",
+            "in": "header",
+            "description": "This header needs to assure to be able to identify the person who is executing the request. This identification needs to be done by the users own organisation, but not necessarily by the SPF Mobility&Transport. This header is kept in the logs and when necessary (for example in case of a legal investigation) the organisation needs to be able to identify the user. In case the request is not initiated by an individual user, then an identifiable name should be entered identifying the automated process or the business unit.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Reference",
+            "in": "header",
+            "description": "This header contains a reference assigned by the user.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "This header specifies the language in which multi valued properties of the response should be returned.<br>",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "nl",
+                "fr",
+                "en",
+                "de"
+              ]
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date for which the indications are requested.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Indicates the size of a page in a paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "Indicates the element before the first element of the requested page in a cursor-based paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data found for the requested parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mobivisData/rest/movementIndications/vehiclesDestroyed": {
+      "get": {
+        "tags": [
+          "Request movement indications vehicle specific"
+        ],
+        "summary": "Query movement indications on destroyed vehicles.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A security token.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation technically sending the request to SPF Mobility&Transport. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation for which the information is intended, from which the information is coming or which is business-wise responsible. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Application",
+            "in": "header",
+            "description": "This is a description of the requesting business application. This description will be agreed and predefined by SPF Mobility&Transports and is based on the business authorisation to the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Id",
+            "in": "header",
+            "description": "This header needs to assure to be able to identify the person who is executing the request. This identification needs to be done by the users own organisation, but not necessarily by the SPF Mobility&Transport. This header is kept in the logs and when necessary (for example in case of a legal investigation) the organisation needs to be able to identify the user. In case the request is not initiated by an individual user, then an identifiable name should be entered identifying the automated process or the business unit.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Reference",
+            "in": "header",
+            "description": "This header contains a reference assigned by the user.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "This header specifies the language in which multi valued properties of the response should be returned.<br>",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "nl",
+                "fr",
+                "en",
+                "de"
+              ]
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date for which the indications are requested.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Indicates the size of a page in a paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "Indicates the element before the first element of the requested page in a cursor-based paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data found for the requested parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mobivisData/rest/movementIndications/vehiclesDestroyedUndone": {
+      "get": {
+        "tags": [
+          "Request movement indications vehicle specific"
+        ],
+        "summary": "Query movement indications on undone-destroyed vehicles.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A security token.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation technically sending the request to SPF Mobility&Transport. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation for which the information is intended, from which the information is coming or which is business-wise responsible. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Application",
+            "in": "header",
+            "description": "This is a description of the requesting business application. This description will be agreed and predefined by SPF Mobility&Transports and is based on the business authorisation to the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Id",
+            "in": "header",
+            "description": "This header needs to assure to be able to identify the person who is executing the request. This identification needs to be done by the users own organisation, but not necessarily by the SPF Mobility&Transport. This header is kept in the logs and when necessary (for example in case of a legal investigation) the organisation needs to be able to identify the user. In case the request is not initiated by an individual user, then an identifiable name should be entered identifying the automated process or the business unit.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Reference",
+            "in": "header",
+            "description": "This header contains a reference assigned by the user.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "This header specifies the language in which multi valued properties of the response should be returned.<br>",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "nl",
+                "fr",
+                "en",
+                "de"
+              ]
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date for which the indications are requested.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Indicates the size of a page in a paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "Indicates the element before the first element of the requested page in a cursor-based paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data found for the requested parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mobivisData/rest/movementIndications/vehiclesNewPreregistionsNewVehicles": {
+      "get": {
+        "tags": [
+          "Request movement indications vehicle specific"
+        ],
+        "summary": "Query movement indications on new preregistered vehicles.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A security token.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation technically sending the request to SPF Mobility&Transport. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation for which the information is intended, from which the information is coming or which is business-wise responsible. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Application",
+            "in": "header",
+            "description": "This is a description of the requesting business application. This description will be agreed and predefined by SPF Mobility&Transports and is based on the business authorisation to the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Id",
+            "in": "header",
+            "description": "This header needs to assure to be able to identify the person who is executing the request. This identification needs to be done by the users own organisation, but not necessarily by the SPF Mobility&Transport. This header is kept in the logs and when necessary (for example in case of a legal investigation) the organisation needs to be able to identify the user. In case the request is not initiated by an individual user, then an identifiable name should be entered identifying the automated process or the business unit.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Reference",
+            "in": "header",
+            "description": "This header contains a reference assigned by the user.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "This header specifies the language in which multi valued properties of the response should be returned.<br>",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "nl",
+                "fr",
+                "en",
+                "de"
+              ]
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date for which the indications are requested.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Indicates the size of a page in a paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "Indicates the element before the first element of the requested page in a cursor-based paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data found for the requested parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mobivisData/rest/movementIndications/vehiclesNewPreregistionsSecondhandVehicles": {
+      "get": {
+        "tags": [
+          "Request movement indications vehicle specific"
+        ],
+        "summary": "Query movement indications on new preregistered vehicles.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A security token.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation technically sending the request to SPF Mobility&Transport. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation for which the information is intended, from which the information is coming or which is business-wise responsible. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Application",
+            "in": "header",
+            "description": "This is a description of the requesting business application. This description will be agreed and predefined by SPF Mobility&Transports and is based on the business authorisation to the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Id",
+            "in": "header",
+            "description": "This header needs to assure to be able to identify the person who is executing the request. This identification needs to be done by the users own organisation, but not necessarily by the SPF Mobility&Transport. This header is kept in the logs and when necessary (for example in case of a legal investigation) the organisation needs to be able to identify the user. In case the request is not initiated by an individual user, then an identifiable name should be entered identifying the automated process or the business unit.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Reference",
+            "in": "header",
+            "description": "This header contains a reference assigned by the user.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "This header specifies the language in which multi valued properties of the response should be returned.<br>",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "nl",
+                "fr",
+                "en",
+                "de"
+              ]
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date for which the indications are requested.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Indicates the size of a page in a paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "Indicates the element before the first element of the requested page in a cursor-based paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data found for the requested parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mobivisData/rest/movementIndications/vehiclesCorrectedPreregistions": {
+      "get": {
+        "tags": [
+          "Request movement indications vehicle specific"
+        ],
+        "summary": "Query movement indications on changed data preregistered vehicles.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A security token.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation technically sending the request to SPF Mobility&Transport. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation for which the information is intended, from which the information is coming or which is business-wise responsible. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Application",
+            "in": "header",
+            "description": "This is a description of the requesting business application. This description will be agreed and predefined by SPF Mobility&Transports and is based on the business authorisation to the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Id",
+            "in": "header",
+            "description": "This header needs to assure to be able to identify the person who is executing the request. This identification needs to be done by the users own organisation, but not necessarily by the SPF Mobility&Transport. This header is kept in the logs and when necessary (for example in case of a legal investigation) the organisation needs to be able to identify the user. In case the request is not initiated by an individual user, then an identifiable name should be entered identifying the automated process or the business unit.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Reference",
+            "in": "header",
+            "description": "This header contains a reference assigned by the user.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "This header specifies the language in which multi valued properties of the response should be returned.<br>",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "nl",
+                "fr",
+                "en",
+                "de"
+              ]
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date for which the indications are requested.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Indicates the size of a page in a paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "Indicates the element before the first element of the requested page in a cursor-based paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data found for the requested parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mobivisData/rest/movementIndications/registrationsWithoutProofOfInsurance": {
+      "get": {
+        "tags": [
+          "Request movement indications within a specific context"
+        ],
+        "summary": "Query movement indications on vehicles which have been indicated as not having a proof of insurance.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A security token.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation technically sending the request to SPF Mobility&Transport. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation for which the information is intended, from which the information is coming or which is business-wise responsible. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Application",
+            "in": "header",
+            "description": "This is a description of the requesting business application. This description will be agreed and predefined by SPF Mobility&Transports and is based on the business authorisation to the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Id",
+            "in": "header",
+            "description": "This header needs to assure to be able to identify the person who is executing the request. This identification needs to be done by the users own organisation, but not necessarily by the SPF Mobility&Transport. This header is kept in the logs and when necessary (for example in case of a legal investigation) the organisation needs to be able to identify the user. In case the request is not initiated by an individual user, then an identifiable name should be entered identifying the automated process or the business unit.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Reference",
+            "in": "header",
+            "description": "This header contains a reference assigned by the user.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "This header specifies the language in which multi valued properties of the response should be returned.<br>",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "nl",
+                "fr",
+                "en",
+                "de"
+              ]
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date for which the indications are requested.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Indicates the size of a page in a paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "Indicates the element before the first element of the requested page in a cursor-based paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data found for the requested parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mobivisData/rest/movementIndications/registrationsSpecialPlates": {
+      "get": {
+        "tags": [
+          "Request movement indications within a specific context"
+        ],
+        "summary": "Query movement indications on registrations special plate-types.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A security token.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation technically sending the request to SPF Mobility&Transport. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation for which the information is intended, from which the information is coming or which is business-wise responsible. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Application",
+            "in": "header",
+            "description": "This is a description of the requesting business application. This description will be agreed and predefined by SPF Mobility&Transports and is based on the business authorisation to the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Id",
+            "in": "header",
+            "description": "This header needs to assure to be able to identify the person who is executing the request. This identification needs to be done by the users own organisation, but not necessarily by the SPF Mobility&Transport. This header is kept in the logs and when necessary (for example in case of a legal investigation) the organisation needs to be able to identify the user. In case the request is not initiated by an individual user, then an identifiable name should be entered identifying the automated process or the business unit.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Reference",
+            "in": "header",
+            "description": "This header contains a reference assigned by the user.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "This header specifies the language in which multi valued properties of the response should be returned.<br>",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "nl",
+                "fr",
+                "en",
+                "de"
+              ]
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date for which the indications are requested.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Indicates the size of a page in a paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "Indicates the element before the first element of the requested page in a cursor-based paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data found for the requested parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mobivisData/rest/movementIndications/registrationsCommercialPlates": {
+      "get": {
+        "tags": [
+          "Request movement indications within a specific context"
+        ],
+        "summary": "Query movement indications on registrations commercial plate-types.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A security token.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation technically sending the request to SPF Mobility&Transport. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation for which the information is intended, from which the information is coming or which is business-wise responsible. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Application",
+            "in": "header",
+            "description": "This is a description of the requesting business application. This description will be agreed and predefined by SPF Mobility&Transports and is based on the business authorisation to the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Id",
+            "in": "header",
+            "description": "This header needs to assure to be able to identify the person who is executing the request. This identification needs to be done by the users own organisation, but not necessarily by the SPF Mobility&Transport. This header is kept in the logs and when necessary (for example in case of a legal investigation) the organisation needs to be able to identify the user. In case the request is not initiated by an individual user, then an identifiable name should be entered identifying the automated process or the business unit.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Reference",
+            "in": "header",
+            "description": "This header contains a reference assigned by the user.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "This header specifies the language in which multi valued properties of the response should be returned.<br>",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "nl",
+                "fr",
+                "en",
+                "de"
+              ]
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date for which the indications are requested.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Indicates the size of a page in a paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "Indicates the element before the first element of the requested page in a cursor-based paginated collection resource.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data found for the requested parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Response": {
+        "type": "object",
+        "description": "The object containing the result",
+        "properties": {
+          "self": {
+            "type": "string",
+            "description": "Link to this request."
+          },
+          "items": {
+            "type": "array",
+            "description": "An array of movement indication objects. The content can be none, one or multiple objects.",
+            "items": {
+              "$ref": "#/components/schemas/MovementIndication"
+            }
+          },
+          "total": {
+            "type": "number",
+            "description": "The total amount of elements in the collection resource following the requested parameters."
+          },
+          "next": {
+            "type": "string",
+            "description": "Link to the next page."
+          }
+        }
+      },
+      "MovementIndication": {
+        "type": "object",
+        "properties": {
+          "dateTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The timestamp of the movement indication"
+          },
+          "transactionTypeCode": {
+            "type": "string",
+            "description": "The type code of the transaction.",
+            "enum": [
+              "NEW",
+              "REG",
+              "CGR",
+              "CGV",
+              "TRA",
+              "UNR",
+              "RAD"
+            ]
+          },
+          "objectKey": {
+            "type": "object",
+            "description": "The object containing the object key reference values.<br>An attribute key reference value only is available following the business legal purposes.",
+            "properties": {
+              "plateNr": {
+                "type": "string",
+                "description": "The plate number."
+              },
+              "plateUID": {
+                "type": "string",
+                "description": "The license plate related technical unique identifier."
+              },
+              "vin": {
+                "type": "string",
+                "description": "The vehicle identification number."
+              },
+              "unifier": {
+                "type": "string",
+                "description": "The unifier of the vehicle identification number. Always used in combination with the VIN."
+              },
+              "transactionUID": {
+                "type": "string",
+                "description": "The transaction related technical unique identifier. Can only be available when the movement indication is related to a registration."
+              }
+            }
+          }
+        },
+        "required": [
+          "dateTime",
+          "transactionTypeCode"
+        ]
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "instance": {
+            "type": "string",
+            "format": "uuid",
+            "description": "A UUID that identifies this specific occurence of the problem."
+          },
+          "title": {
+            "type": "string",
+            "description": "A short summary of the problem."
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The HTTP status code as originally returned by the service.",
+            "minimum": 400,
+            "maximum": 600,
+            "exclusiveMaximum": true
+          },
+          "detail": {
+            "type": "string",
+            "description": "An more detailed explanation specific to this occurence of the problem."
+          }
+        }
+      }
+    }
+  }
+}

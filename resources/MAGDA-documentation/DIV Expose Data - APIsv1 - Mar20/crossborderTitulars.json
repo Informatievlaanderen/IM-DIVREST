@@ -1,0 +1,361 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Expose Data DIV - Crossborder Titular Service",
+    "version": "3.0.0",
+    "description": "The crossborder service allows querying foreign plate titular data (persons and organizations). The request will occur based on a country code, a plate number and optionally a date."
+  },
+  "servers": [
+    {
+      "url": "https://esb.tst.mobilit.fgov.be",
+      "description": "TST environment"
+    },
+    {
+      "url": "https://esb.ta.mobilit.fgov.be",
+      "description": "ACC environment"
+    },
+    {
+      "url": "https://esb.mobilit.fgov.be",
+      "description": "PRD environment"
+    }
+  ],
+  "paths": {
+    "/mobivisData/rest/crossborderTitulars": {
+      "get": {
+        "tags": [
+          "Operations for consultation of crossborder titular data"
+        ],
+        "summary": "Query registration crossborder titular data.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A security token.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation technically sending the request to SPF Mobility&Transport. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation for which the information is intended, from which the information is coming or which is business-wise responsible. It is the official 10-digit company number as known in the official company register.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Target-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation",
+            "in": "header",
+            "description": "This header contains the identification of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Organisation-Description",
+            "in": "header",
+            "description": "This header contains the description of the organisation of the user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Application",
+            "in": "header",
+            "description": "This is a description of the requesting business application. This description will be agreed and predefined by SPF Mobility&Transports and is based on the business authorisation to the target-organisation.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Id",
+            "in": "header",
+            "description": "This header needs to assure to be able to identify the person who is executing the request. This identification needs to be done by the users own organisation, but not necessarily by the SPF Mobility&Transport. This header is kept in the logs and when necessary (for example in case of a legal investigation) the organisation needs to be able to identify the user. In case the request is not initiated by an individual user, then an identifiable name should be entered identifying the automated process or the business unit.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "User-Reference",
+            "in": "header",
+            "description": "This header contains a reference assigned by the user.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "This header specifies the language in which multi valued properties of the response should be returned.<br>",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "nl",
+                "fr",
+                "en",
+                "de"
+              ]
+            }
+          },
+          {
+            "name": "countryCode",
+            "in": "query",
+            "description": "The country requested data from.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "plateNr1",
+            "in": "query",
+            "description": "The plate number part-1.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "plateNr2",
+            "in": "query",
+            "description": "The plate number part-2.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dateTime",
+            "in": "query",
+            "description": "The date for which the data is requested. When not specified, the default will be the current date and time.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data found for the requested parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Response": {
+        "type": "object",
+        "description": "The object containing the result",
+        "properties": {
+          "self": {
+            "type": "string",
+            "description": "Link to this request."
+          },
+          "crossborderTitular": {
+            "$ref": "#/components/schemas/CrossborderTitular"
+          }
+        }
+      },
+      "CrossborderTitular": {
+        "description": "The crossborder titular object.",
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Indication whether the titular is a natural person or a moral person/organization."
+          },
+          "person": {
+            "type": "object",
+            "description": "Person object - only available in case the titular-type is a natural person.",
+            "properties": {
+              "lastName": {
+                "description": "The last name(s) of the person",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "firstName": {
+                "description": "The first name(s) of the person",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "organisation": {
+            "type": "object",
+            "description": "Organisation object only available in case the titular-type is a moral person (organisation).",
+            "properties": {
+              "companyNr": {
+                "type": "string",
+                "description": "The number of the company as defined in the specified country."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the organisation"
+              },
+              "type": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "description": "The type of the organisation as defined in the specified country."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "The company type description."
+                  }
+                }
+              },
+              "legalEntity": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "description": "The legal entity of the company as defined in the specified country."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "The company legel type description."
+                  }
+                }
+              }
+            }
+          },
+          "careOfName": {
+            "type": "string",
+            "description": "This element is present when the address provided, is a c/o address (care of), i.e. the vehicle holder receives its mail at the address of another person or a company.  The element contains the name of the person or company associated with the address."
+          },
+          "registrationLanguageCode": {
+            "type": "string",
+            "description": "The language code of the registration documents, issued to the holder or owner."
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "streetName": {
+                "type": "string",
+                "description": "Street name of the address."
+              },
+              "houseNumber": {
+                "type": "string",
+                "description": "Housenumber of the address."
+              },
+              "box": {
+                "type": "string",
+                "description": "POBox number of the address."
+              },
+              "postalCode": {
+                "type": "string",
+                "description": "Postalcode of the address."
+              },
+              "cityName": {
+                "type": "string",
+                "description": "The city name of the address."
+              },
+              "country": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "description": "Country code (ISO2Code)"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Country name"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "instance": {
+            "type": "string",
+            "format": "uuid",
+            "description": "A UUID that identifies this specific occurence of the problem."
+          },
+          "title": {
+            "type": "string",
+            "description": "A short summary of the problem."
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The HTTP status code as originally returned by the service.",
+            "minimum": 400,
+            "maximum": 600,
+            "exclusiveMaximum": true
+          },
+          "detail": {
+            "type": "string",
+            "description": "An more detailed explanation specific to this occurence of the problem."
+          }
+        }
+      }
+    }
+  }
+}

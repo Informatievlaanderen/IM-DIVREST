@@ -1,0 +1,33 @@
+{
+	"self": "/crossborderTitular?countryCode=NL&plateNr1=19GRplateNr2=LL&dateTime=2019-11-01T12:00:00",
+	"items": [
+		{
+			"type": "M",
+			"organisation": {
+				"companyNr": "0402623937",
+				"name": "DutchCompany",
+				"type": {
+					"code": "01",
+					"description": "BV"
+				},
+				"legalEntity": {
+					"code": "01",
+					"description": "BV"
+				}
+			},
+			"careOfName": "",
+			"registrationLanguageCode": "NL",
+			"address": {
+				"streetName": "Grote Baan",
+				"houseNumber": "679",
+				"box": null,
+				"postalCode": "1016LV",
+				"cityName": "Rotterdam",
+				"country": {
+					"code": "129",
+					"description": "Nederland"
+				}
+			}
+		}
+	]
+}

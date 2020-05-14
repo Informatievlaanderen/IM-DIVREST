@@ -1,0 +1,120 @@
+{
+   "self": "/registrations?plateNr=1SKP863&dateTime=2019-11-01T12:00:00",
+   "items": [  {
+   "license":    {
+      "plateNr": "1SKP863",
+      "plateType":       {
+         "code": "NM ",
+         "description": "Normaal"
+      },
+      "languageCode": "NL",
+      "startSituationDate": "2017-05-31",
+      "expiryDate": "2199-12-30",
+      "lastRegistrationDate": "2017-05-31",
+      "reRegistrationFlag": null,
+      "commercialMaxMass": 0,
+      "commercialMaxCapacity": 0,
+      "status":       {
+         "code": "REG",
+         "description": "Ingeschreven"
+      },
+      "statusLegal":       {
+         "code": "NOR",
+         "description": "Normaal"
+      }
+   },
+   "titular":    {
+      "type": "M",
+      "organisation":       {
+         "companyNr": "0402623937",
+         "name": "D'IETEREN LEASE",
+         "isLeaseCompany": "Y",
+         "legalFormCode": "NV"
+      },      
+      "address":       {
+         "lastUpdateSource": "KBO/BCE",
+         "lastUpdateDateTime": null,
+         "streetName": "Leuvensesteenweg",
+         "houseNumber": "679",
+         "box": null,
+         "postalCode": "3071",
+         "cityName": "Erps-Kwerps",
+         "country":          {
+            "code": "150",
+            "description": "België"
+         }
+      }
+   },
+   "vehicle":    {
+      "vin": "WVGZZZ5NZHW937992",
+      "unifier": "01",
+      "category":       {
+         "code": "M1",
+         "description": "VOERTUIGEN BESTEMD VOOR PERSONENVERVOER-TEN HOOGSTE 8 ZITPLAATSEN-BESTUURDER NIET MEEGEREKEND"
+      },
+      "makeName": "VOLKSWAGEN, VW",
+      "commercialName": "TIGUAN",
+      "firstRegistrationDate": "1969-12-31",
+      "firstKnownUseDate": "1969-12-31",
+      "maxPermLadenMassNational": 0,
+      "type": "5N",
+      "wvta": "e1*2001/116*0450*30",
+      "pvaBelgium": "      ",
+      "variant": "ACDFGCX0",
+      "version": "NFM6FM6BB005KN2TVR27MM62           ",
+      "status":       {
+         "code": "NOR",
+         "description": null
+      },
+      "statusLegal":       {
+         "code": "NOR",
+         "description": "Normaal"
+      },
+      "statusAdministrative":       {
+         "code": "NOR",
+         "description": "Normaal"
+      },
+      "accidentDate": "1969-12-31",
+      "demolished":       {
+         "code": " ",
+         "description": null
+      },
+      "sellerCompanyCode": "0826288857",
+      "customsStickerCode": "3",
+      "counterType": null,
+      "importedCertificateCountryCode": "   ",
+      "importedCertificatePlateNumber": "N",
+      "kind":       {
+         "code": "AC",
+         "description": "STATIONWAGEN"
+      },
+      "nationalBuildup":       {
+         "code": "  ",
+         "description": null
+      },
+      "nationalConfiguration":       {
+         "code": "  ",
+         "description": null
+      },
+      "colour": [      {
+         "code": "A",
+         "description": null
+      }],
+      "offRoad": " ",
+      "technicPermissibleMaxMass": 2110,
+      "massOfTheVehicleInRunningOrder": 1574,
+      "numberOfAxles": 0,
+      "wheelBase": 2677,
+      "maximumSpeed": 185,
+      "handicapIndicator": null,
+      "tachoIndicator": null,
+      "assistanceWithoutPedallingIndicator": null,
+      "sizeHeight": 0,
+      "sizeLength": 4486,
+      "sizeWidth": 1839,
+      "nrOfSeatingPositions": 5,
+      "numberOfStandingPlaces": 0,
+      "engine": []
+   }
+}]
+}
