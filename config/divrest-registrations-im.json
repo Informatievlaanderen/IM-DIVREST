@@ -1,0 +1,18 @@
+[
+{
+  "name": "divrest-registrations-im",
+  "type": "ap",
+  "eap": "DIVREST-Registrations-IM.EAP",
+  "diagram": "DIVREST-Registrations",
+  "template": "divrest-registrations-im.j2",
+  "title": "DIVREST Registrations",
+  "publication-state": "https://data.vlaanderen.be/id/concept/StandaardStatus/OntwerpStandaard",
+  "publication-date": "2020-05-25",
+  "license": "https://data.vlaanderen.be/id/licentie/modellicentie-gratis-hergebruik/v1.0",
+  "contributors-file": "stakeholders.csv",
+  "contributors-column": "IM-DIVREST",
+  "site": "site-skeleton/divrest-registrations-im",
+  "feedbackurl": "https://github.com/Informatievlaanderen/IM-DIVREST/issues",
+  "standaardregisterurl": "https://data.vlaanderen.be/standaarden/"
+}
+]

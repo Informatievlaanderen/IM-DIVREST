@@ -1,4 +1,4 @@
-# OSLOthema-mijnThema
+# IM-DIVREST
 
 **_Editors: lees eerst [deze richtlijnen](https://github.com/Informatievlaanderen/OSLO-toolchain/blob/master/doc-user/README.md)._**
 
